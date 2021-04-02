@@ -1,0 +1,366 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the documentation for Book Library API",
+    "version": "1.0.0",
+    "title": "Book Library",
+    "contact": {
+      "email": "ramya.bharadwaj30@gmail.com"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/book",
+  "paths": {
+    "/": {
+      "post": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Add a new Book to library",
+        "description": "",
+        "operationId": "addBook",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Book to be added to library",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addBookRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Added books successfully",
+            "schema": {
+              "$ref": "#/definitions/addBookResponse"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/bookAlreadyPresent"
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Get all Books from library",
+        "description": "",
+        "operationId": "getAllBooks",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Get all books successfully",
+            "schema": {
+              "$ref": "#/definitions/getBooksResponse"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Update book name",
+        "description": "",
+        "operationId": "updateBook",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update book name",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateBookRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Added books successfully",
+            "schema": {
+              "$ref": "#/definitions/updateBookResponse"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/bookAlreadyPresent"
+            }
+          },
+          "404": {
+            "description": "Added books successfully",
+            "schema": {
+              "$ref": "#/definitions/bookNotFound"
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Delete book name",
+        "description": "",
+        "operationId": "deleteBook",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Book to be added to library",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addBookRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Added books successfully",
+            "schema": {
+              "$ref": "#/definitions/deleteBookResponse"
+            }
+          },
+          "404": {
+            "description": "Added books successfully",
+            "schema": {
+              "$ref": "#/definitions/bookNotFound"
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          }
+        }
+      }
+    },
+    "/{id}": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Get all Books from library",
+        "description": "",
+        "operationId": "getBookById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "number",
+            "description": "Get book by this id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get book success",
+            "schema": {
+              "$ref": "#/definitions/getBookByIdResponse"
+            }
+          },
+          "404": {
+            "description": "Added books successfully",
+            "schema": {
+              "$ref": "#/definitions/bookNotFound"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "addBookRequest": {
+      "type": "object",
+      "properties": {
+        "book": {
+          "type": "string",
+          "example": "Prisoner of Birth"
+        }
+      }
+    },
+    "addBookResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "number",
+          "example": 201
+        },
+        "code": {
+          "type": "string",
+          "example": "BOOK_ADDED_SUCCESSFULLY"
+        },
+        "message": {
+          "type": "string",
+          "example": "Book added successfully"
+        }
+      }
+    },
+    "validationError": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "number",
+          "example": 422
+        },
+        "code": {
+          "type": "string",
+          "example": "VALIDATION_ERROR"
+        },
+        "message": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "bookAlreadyPresent": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "number",
+          "example": 400
+        },
+        "code": {
+          "type": "string",
+          "example": "BOOK_ALREADY_PRESENT"
+        },
+        "message": {
+          "type": "string",
+          "example": "Book with same name already present"
+        }
+      }
+    },
+    "getBooksResponse": {
+      "type": "object",
+      "properties": {
+        "book": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "Prisoner of Birth"
+          }
+        }
+      }
+    },
+    "getBookByIdResponse": {
+      "type": "object",
+      "properties": {
+        "book": {
+          "type": "string",
+          "example": "Prisoner of Birth"
+        }
+      }
+    },
+    "bookNotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "number",
+          "example": 404
+        },
+        "code": {
+          "type": "string",
+          "example": "BOOK_NOT_FOUND"
+        },
+        "message": {
+          "type": "string",
+          "example": "Book not found"
+        }
+      }
+    },
+    "updateBookRequest": {
+      "type": "object",
+      "properties": {
+        "original_book": {
+          "type": "string",
+          "example": "Prisoner of Birth"
+        },
+        "new_book": {
+          "type": "string",
+          "example": "Harry Potter"
+        }
+      }
+    },
+    "updateBookResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "number",
+          "example": 204
+        },
+        "code": {
+          "type": "string",
+          "example": "BOOK_REPLACED_SUCCESSFULLY"
+        },
+        "message": {
+          "type": "string",
+          "example": "Book replaced successfully"
+        }
+      }
+    },
+    "deleteBookResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "number",
+          "example": 204
+        },
+        "code": {
+          "type": "string",
+          "example": "BOOK_DELETED_SUCCESSFULLY"
+        },
+        "message": {
+          "type": "string",
+          "example": "Book deleted successfully"
+        }
+      }
+    }
+  }
+}
