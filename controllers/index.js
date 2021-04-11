@@ -78,4 +78,18 @@ const updateBook = (req, res, next) => {
     }
 }
 
-module.exports = { addBooks, getAllBooks, getBookById, deleteBook, updateBook };
+const putBook = (req, res, next) => {
+    const bookObj = {};
+    const saveItemOnDB = (book, cb) => {
+        cb(null, Math.round(Math.random(book.length) * 1000));
+    }
+    BOOKS.map(book => {
+        saveItemOnDB(book, (err, response) => {
+            bookObj[book] = response;
+            
+        })
+    })
+    res.send(bookObj)
+}
+
+module.exports = { addBooks, getAllBooks, getBookById, deleteBook, updateBook, putBook };
